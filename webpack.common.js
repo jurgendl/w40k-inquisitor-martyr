@@ -8,14 +8,14 @@ const CopyPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: './src/w40k-inquisitor-martyr.ts',
   mode: 'development', //none/development/production
   devtool: 'source-map',
   optimization: {
     usedExports: true
   },
   output: {
-	filename: "bundle.js",
+	filename: "w40k-inquisitor-martyr.js",
     //filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
@@ -57,13 +57,13 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       //filename: '[name].[contenthash].css',
-		filename: 'bundle.css',
+		filename: 'w40k-inquisitor-martyr.css',
       chunkFilename: '[id].css'
     }),
     new CleanWebpackPlugin(),// to clean dist folder each time when webpack does a new build.
-    new HtmlWebpackPlugin({ // to generate index.html file from a template with scripts and styles tags.
-      template: './src/index.html',
-      filename: 'index.html'
+    new HtmlWebpackPlugin({ // to generate w40k-inquisitor-martyr.html file from a template with scripts and styles tags.
+      template: './src/w40k-inquisitor-martyr.html',
+      filename: 'w40k-inquisitor-martyr.html'
     }),
     new ForkTsCheckerWebpackPlugin(), // this plugin allows us to check typescript typings as a separate process. It will improve build performance
     new CopyPlugin({ // This plugin gives us the ability to copy the assets folder with its content to the dist folder

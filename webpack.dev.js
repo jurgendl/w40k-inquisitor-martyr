@@ -8,7 +8,7 @@ module.exports = merge(common, {
 	devServer: {
 		port: 7584,
 		open: {
-			target: ['index.html'],
+			target: ['w40k-inquisitor-martyr.html'],
 			app: {
 				name: 'chrome',	// The browser application name is platform-dependent. Don't hard code it in reusable modules. For example, 'Chrome' is 'Google Chrome' on macOS, 'google-chrome' on Linux, and 'chrome' on Windows.
 				//arguments: ['--incognito', '--new-window'],

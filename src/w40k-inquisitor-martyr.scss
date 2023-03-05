@@ -1,0 +1,123 @@
+:root {
+	--border-radius: 3px;
+}
+
+/* corners */
+.btn,
+.dropdown-menu,
+.form-control,
+.input-group-text,
+.custom-select,
+.toast,
+.modal-content,
+.bootstrap-tagsinput,
+.card,
+.alert,
+.custom-file-label,
+.collapse-item,
+.popover,
+.input-group-text,
+.pagination,
+.page-link,
+.img-thumbnail {
+	border-radius: var(--border-radius) !important;
+}
+
+.custom-checkbox .custom-control-label::before {
+	border-radius: var(--border-radius) !important;
+}
+
+.collapse-inner {
+	border-radius: var(--border-radius) !important;
+}
+
+.badge {
+	border-radius: calc(3*var(--border-radius)) !important;
+}
+
+.list-group-horizontal .list-group-item:first-child {
+	border-top-left-radius: var(--border-radius) !important;
+	border-bottom-left-radius: var(--border-radius) !important;
+}
+
+.list-group-horizontal .list-group-item:last-child {
+	border-top-right-radius: var(--border-radius) !important;
+	border-bottom-right-radius: var(--border-radius) !important;
+}
+
+.list-group-item:first-child {
+	border-top-left-radius: var(--border-radius) !important;
+	border-top-right-radius: var(--border-radius) !important;
+}
+
+.list-group-item:last-child {
+	border-bottom-right-radius: var(--border-radius) !important;
+	border-bottom-left-radius: var(--border-radius) !important;
+}
+
+.custom-file-label::after {
+	border-radius: 0px var(--border-radius) var(--border-radius) 0px !important;
+}
+
+.nav-pills .nav-link {
+	border-radius: var(--border-radius) !important;
+}
+
+.nav-tabs .nav-link {
+	border-top-left-radius: var(--border-radius) !important;
+	border-top-right-radius: var(--border-radius) !important;
+}
+
+
+
+
+
+.Magic {
+	color: rgb(61, 142, 185);
+}
+
+.Rare {
+	color: rgb(97, 189, 109);
+}
+
+.Artificer {
+	color: rgb(147, 101, 184);
+}
+
+.Relic {
+	color: rgb(243, 121, 52);
+}
+
+.Archeotech {
+	color: rgb(184, 49, 47);
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+	width: 100% !important;
+}
+
+.dropdown-menu li:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bootstrap-select .dropdown-menu {
+	max-width: 95vw;
+}
+
+.imgcheck img {
+	border: 3px solid rgba(200, 100, 100, .75)
+}
+
+.imgcheck input[type=checkbox]:checked~img {
+	border: 3px solid rgba(100, 200, 100, .75)
+}
+
+.psalm_list_parent :not(:first-child)::before {
+	content: ' + ';
+}
+
+.strikeme {
+	text-decoration: line-through;
+	text-decoration-color: rgba(0, 0, 0, 0.5);
+	text-decoration-thickness: 2px;
+}
