@@ -28,11 +28,68 @@ export class Component {
 
 	data!: W40IData;
 
+	levelForPsalm(psalm_name: string): string {
+		return this.psalmByname(psalm_name)?.level;
+	}
+
+	allPsalmsOfLevels(psalm_level: string[]): W40IPsalm[] {
+		return (<W40IPsalm[]>this.data.psalms.filter(psalm => psalm_level.includes(psalm.level)));
+	}
+
+	psalmByname(psalm_name: string): W40IPsalm {
+		return (<W40IPsalm>this.data.psalms.find(psalm => psalm.name == psalm_name));
+	}
+
+	isPsalmChecked(psalm_name: string): boolean {
+		return window.localStorage.getItem(psalm_name) == 'true';
+	}
+
+	checkDoctrineChange(input: HTMLInputElement) {
+		const checked: boolean = input.checked;
+		const val: string | null = input.getAttribute('value');
+		if (val) {
+			window.localStorage.setItem(val, String(checked));
+		}
+		const psalm_name: string | null = input.getAttribute('data-psalm-name');
+		if (psalm_name) {
+			if (checked) {
+				$('.' + psalm_name.replace(' ', '_')).removeClass("strikeme");
+			} else {
+				$('.' + psalm_name.replace(' ', '_')).addClass("strikeme");
+			}
+		}
+	}
+
+	findDoctrineById(doctrine_id: string): W40IDoctrine {
+		return (<W40IDoctrine>this.data.doctrines.find(doctrine => doctrine.id == doctrine_id));
+	}
+
+	selectDoctrineChange() {
+		const doctrine_id = $("#selectDoctrine").find('option:selected').val();
+		if (doctrine_id && typeof doctrine_id === "string") {
+			const doctrine = this.findDoctrineById(String(doctrine_id));
+			if (doctrine) {
+				$("#description").html(doctrine.description);
+				for (let i = 0; i < 6; i++) {
+					$("#p" + i).attr("src", this.emptyImage).attr("title", "");
+					$("#description" + i).attr("class", "").text(" ");
+				}
+				$.each(doctrine.psalms, (psalm_index: number, psalm_name: string) => {
+					const psalm: W40IPsalm | undefined = this.psalmByname(psalm_name);
+					if (psalm) {
+						$("#p" + psalm_index).attr("src", "data:image/png;base64," + psalm.image).attr("title", psalm.name);
+						$("#description" + psalm_index).attr("class", psalm.level).html('<u><b>' + psalm.name + '</b></u>: ' + psalm.description);
+					}
+				});
+			}
+		}
+	}
+
 	app(data: W40IData) {
 		this.data = data;
 
 		for (let i = 0; i < 6; i++) {
-			$('#imgcontainer').append('<img id="p' + i + '" width="60" height="60" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">&nbsp;');
+			$('#imgcontainer').append('<img id="p' + i + '" width="60" height="60" src="' + this.emptyImage + '">&nbsp;');
 			$('#descriptioncontainer').append('<div id="description' + i + '">&nbsp;</div>');
 		}
 
@@ -75,10 +132,11 @@ export class Component {
 				'</label>' +
 				'</div>'
 			);
-			$('#check' + psalm_index).change(evt => this.checkDoctrineChange(evt));
+			$('#check' + psalm_index).change((evt: JQuery.ChangeEvent<HTMLElement, null, HTMLElement, HTMLElement>) => this.checkDoctrineChange(evt.target as HTMLInputElement));
 		});
 
-		$("#selectDoctrine").change(this.selectDoctrineChange);
+		console.log("before selectDoctrineChange");
+		$("#selectDoctrine").change(() => this.selectDoctrineChange());
 		this.selectDoctrineChange();
 
 		setTimeout(() => {
@@ -89,60 +147,7 @@ export class Component {
 					if (!this.isPsalmChecked(psalm.name))
 						$('.' + psalm.name.replace(' ', '_')).addClass("strikeme");
 				});
-			}, 100);
-		}, 250);
-	}
-
-	levelForPsalm(psalm_name: string): string | undefined {
-		return this.psalmByname(psalm_name)?.level;
-	}
-
-	allPsalmsOfLevels(psalm_level: string[]): W40IPsalm[] | undefined {
-		return this.data.psalms.filter(psalm => psalm_level.includes(psalm.level));
-	}
-
-	psalmByname(psalm_name: string): W40IPsalm | undefined {
-		return this.data.psalms.find(psalm => psalm.name == psalm_name);
-	}
-
-	doctrineById(doctrine_id: string): W40IDoctrine | undefined {
-		return this.data.doctrines.find(doctrine => doctrine.id == doctrine_id);
-	}
-
-	isPsalmChecked(psalm_name: string): boolean {
-		return window.localStorage.getItem(psalm_name) == 'true';
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	checkDoctrineChange(evt: any) {
-		const act = evt.target.checked;
-		const psalm_name: string | undefined = $(evt.target).attr('data-psalm-name');
-		const a: string | undefined = $(evt.target).attr('value');
-		if (a) window.localStorage.setItem(a, act);
-		if (psalm_name) {
-			if (act) $('.' + psalm_name.replace(' ', '_')).removeClass("strikeme");
-			else $('.' + psalm_name.replace(' ', '_')).addClass("strikeme");
-		}
-	}
-
-	selectDoctrineChange() {
-		const doctrine_id = $("#selectDoctrine").find('option:selected').val();
-		if (doctrine_id && typeof doctrine_id === "string") {
-			const doctrine = this.doctrineById(doctrine_id);
-			if (doctrine) {
-				$("#description").html(doctrine.description);
-				for (let i = 0; i < 6; i++) {
-					$("#p" + i).attr("src", this.emptyImage).attr("title", "");
-					$("#description" + i).attr("class", "").text(" ");
-				}
-				$.each(doctrine.psalms, (psalm_index: number, psalm_name: string) => {
-					const psalm: W40IPsalm | undefined = this.psalmByname(psalm_name);
-					if (psalm) {
-						$("#p" + psalm_index).attr("src", "data:image/png;base64," + psalm.image).attr("title", psalm.name);
-						$("#description" + psalm_index).attr("class", psalm.level).html('<u><b>' + psalm.name + '</b></u>: ' + psalm.description);
-					}
-				});
-			}
-		}
+			}, 500);
+		}, 1000);
 	}
 }
