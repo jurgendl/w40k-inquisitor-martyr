@@ -132,4 +132,10 @@ dist
 .history/
 
 package-lock.json
+
 /.idea
+/java/target/
+/java/.classpath
+/java/.project
+/java/.settings
+/java/Warhammer 40,000 Inquisitor - Martyr - Compendium - NeocoreGames_bestanden.7z
