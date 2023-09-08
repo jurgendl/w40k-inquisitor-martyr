@@ -3,8 +3,10 @@
 		"outDir": "./dist/",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"sourceMap": false,
 		"target": "ES2022",
 		"module": "ES2022",
 		"jsx": "react",
@@ -13,7 +15,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"lib": [
 			"ES2022",
-			"dom"
+			"DOM"
 		]
 	},
 	"exclude": [
