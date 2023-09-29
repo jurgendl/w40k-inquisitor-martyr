@@ -119,7 +119,7 @@ export class Component {
 		(<HTMLInputElement>document.querySelector('#selectDoctrine')).value = this.defaultSelectedId;
 
 		// https://developer.snapappointments.com/bootstrap-select/
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		($('#selectDoctrine') as any).selectpicker();
 
 		$.each(this.allPsalmsOfLevels(['Relic', 'Archeotech']), (psalm_index: number, psalm: W40IPsalm) => {
