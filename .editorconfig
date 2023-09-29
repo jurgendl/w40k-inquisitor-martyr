@@ -2,7 +2,6 @@ root = true
 
 [*]
 indent_style = tab
-indent_size = 4
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
@@ -14,5 +13,4 @@ curly_bracket_next_line = false
 quote_type = single
 
 [*.md]
-indent_size = false
 trim_trailing_whitespace = false
